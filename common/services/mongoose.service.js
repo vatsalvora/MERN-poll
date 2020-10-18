@@ -14,13 +14,14 @@ const options = {
     w: "majority"
 };
 const connectWithRetry = () => {
-    console.log('MongoDB connection with retry')
+    console.log('MongoDB connection with retry');
+    console.log(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_DNS}/${process.env.DB_DATABASE}`);
     mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_DNS}/${process.env.DB_DATABASE}`, options).then(()=>{
         console.log('MongoDB is connected')
     }).catch(err=>{
         console.log('MongoDB connection unsuccessful, retry after 5 seconds. ', ++count);
         setTimeout(connectWithRetry, 5000)
-    })
+    });
 };
 
 connectWithRetry();
