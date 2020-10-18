@@ -34,6 +34,28 @@ function App() {
     setValue(valueCopy);
   };
 
+  const handleSubmitClick = (event) => {
+    fetch('http://localhost:3000/polls', {
+        method: 'POST',
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            "prompt": question,
+            "options": value
+        })
+    })
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(data) {
+        console.log('Request succeeded with JSON response', data);
+    })
+    .catch(function(error) {
+        console.log('Request failed', error);
+    });
+  };
+
   return (
     <div className="App">
     <FormControl component="fieldset">
@@ -63,7 +85,7 @@ function App() {
             </Button>
           </Grid>
           <Grid item>
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={handleSubmitClick}>
             Save
             </Button>
           </Grid>
