@@ -35,7 +35,7 @@ function App() {
   };
 
   const handleSubmitClick = (event) => {
-    fetch(`http://0.0.0.0:${process.env.PORT}/polls`, {
+    fetch(`https://mern-poll.herokuapp.com/polls`, {
         method: 'POST',
         headers: {
             "Content-type": "application/json"
