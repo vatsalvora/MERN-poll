@@ -35,7 +35,7 @@ function App() {
   };
 
   const handleSubmitClick = (event) => {
-    fetch('http://localhost:3000/polls', {
+    fetch(`http://0.0.0.0:${process.env.PORT}/polls`, {
         method: 'POST',
         headers: {
             "Content-type": "application/json"

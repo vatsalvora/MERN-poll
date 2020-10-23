@@ -28,5 +28,5 @@ app.get("/", function(req,res) {
 app.use(bodyParser.json());
 PollsRouter.routesConfig(app);
 
-app.listen(process.env.port || 3000, 
+app.listen(process.env.PORT || 3000, 
 	() => console.log("server is running..."));
