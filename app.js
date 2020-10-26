@@ -1,4 +1,3 @@
-//mongodb+srv://admin:<password>@mern-poll-db.phflm.mongodb.net/<dbname>?retryWrites=true&w=majority
 const express = require("express");
 const app = express();
 const bodyParser = require('body-parser');
