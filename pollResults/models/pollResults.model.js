@@ -1,9 +1,10 @@
 const mongoose = require('../../common/services/mongoose.service').mongoose;
 const Schema = mongoose.Schema;
 
-const pollSchema = new Schema({
-   prompt: String,
-   options: [String]
+const pollResultSchema = new Schema({
+   pollId: String,
+   response: String,
+   timestamp: 
 });
 
 pollSchema.virtual('id').get(function () {
@@ -11,11 +12,11 @@ pollSchema.virtual('id').get(function () {
 });
 
 // Ensure virtual fields are serialised.
-pollSchema.set('toJSON', {
+pollResultSchema.set('toJSON', {
     virtuals: true
 });
 
-const Poll = mongoose.model('Polls', pollSchema);
+const PollResult = mongoose.model('PollResults', pollResultSchema);
 
 exports.list = (perPage, page) => {
     return new Promise((resolve, reject) => {
@@ -42,8 +43,8 @@ exports.findById = (id) => {
         });
 };
 
-pollSchema.findById = function (cb) {
-    return this.model('Polls').find({id: this.id}, cb);
+pollResultSchema.findById = function (cb) {
+    return this.model('PollResults').find({id: this.id}, cb);
 };
 
 

@@ -25,7 +25,8 @@ function PollView() {
     setValue(event.target.value);
   };
 
-  const fetchPoll = (pollId) => (event) => {
+  const fetchPoll = (pollId) => {
+    console.log("PollID: ",pollId);
     fetch(`https://mern-poll.herokuapp.com/polls/${pollId}`, {
         method: 'GET',
         headers: {
@@ -52,7 +53,6 @@ function PollView() {
 
   React.useEffect(() => {
       fetchPoll(pollId);
-      setInterval(() => fetchPoll(pollId), 5000);
   },[pollId]);
 
   return (

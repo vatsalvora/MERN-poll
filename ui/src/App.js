@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import PollForm from './components/poll/create/PollForm.js';
 import PollList from './components/poll/list/PollList.js';
+import PollView from './components/poll/view/PollView.js';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import CreateIcon from '@material-ui/icons/Create';
@@ -35,6 +36,9 @@ function App() {
           </Route>
           <Route path="/list">
             <PollList/>
+          </Route>
+          <Route path="/view/:pollId">
+            <PollView/>
           </Route>
         </Switch>
       </div>

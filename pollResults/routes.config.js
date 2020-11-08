@@ -1,15 +1,14 @@
-const PollsController = require('./controllers/polls.controller');
+const PollResultsController = require('./controllers/pollResults.controller');
 
 
 exports.routesConfig = function (app) {
-    app.post('/polls', [
-        PollsController.insert
+    app.post('/pollResults', [
+        PollResultsController.insert
     ]);
-    app.get('/polls', [
-        PollsController.list
+    app.get('/pollResults', [
+        PollResultsController.list
     ]);
-    app.get('/polls/:pollId', [
-        PollsController.getById
+    app.get('/pollResults/:pollResultId', [
+        PollResultsController.getById
     ]);
-
 };

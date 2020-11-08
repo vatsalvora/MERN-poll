@@ -8,14 +8,24 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  useRouteMatch
 } from "react-router-dom";
 
 function PollList() {
+
+  let match = useRouteMatch();
+  
+  const [selected, setSelected] = React.useState(false);
+
   const [list, setList] = React.useState(['Sample']);
 
-  const fetchPolls = (event) => {
-    fetch(`https://mern-poll.herokuapp.com/polls`, {
+  const handleChange = (event) => {
+    setSelected(true);
+  }
+
+  const fetchPolls = () => {
+    fetch(`https://mern-poll.herokuapp.com/polls?limit=100`, {
         method: 'GET',
         headers: {
             "Content-type": "application/json"
@@ -38,24 +48,24 @@ function PollList() {
   };
 
   React.useEffect(() => {
-      fetchPolls();
-      setInterval(() => fetchPolls(), 5000);
+    fetchPolls();
   },[]);
  
   return (
     <Router>
     <div className="App">
+    {(!selected) &&
     <List component="nav" aria-label="polls">
       {list.map((item,index) =>
-        <Link to={"/view/"+item.id}>
-          <ListItem key={"item:"+index} button>
+        <Link to={`${match.url}/view/${item.id}`}>
+          <ListItem key={"item:"+index} button onClick={handleChange}>
             <ListItemText key={"label:"+index} primary={item.prompt}/>
           </ListItem>
         </Link>
       )}
-    </List>
+    </List>}
     <Switch>
-      <Route path="/view/:pollId">
+      <Route path={`${match.url}/view/:pollId`}>
         <PollView/>
       </Route>
     </Switch>

@@ -32,6 +32,11 @@ exports.list = (perPage, page) => {
     });
 };
 
+
+pollSchema.findById = function (cb) {
+    return this.model('Polls').find({id: this.id}, cb);
+};
+
 exports.findById = (id) => {
     return Poll.findById(id)
         .then((result) => {
@@ -41,11 +46,6 @@ exports.findById = (id) => {
             return result;
         });
 };
-
-pollSchema.findById = function (cb) {
-    return this.model('Polls').find({id: this.id}, cb);
-};
-
 
 exports.createPoll = (pollData) => {
     const poll = new Poll(pollData);
