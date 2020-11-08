@@ -22,8 +22,8 @@ exports.list = (req, res) => {
         })
 };
 
-exports.getById = (req, res) => {
-    PollResultModel.findById(req.params.pollId)
+exports.getByPollId = (req, res) => {
+    PollResultModel.findByPollId(req.params.pollId)
         .then((result) => {
             res.status(200).send(result);
         });

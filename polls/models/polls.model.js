@@ -15,6 +15,11 @@ pollSchema.set('toJSON', {
     virtuals: true
 });
 
+
+pollSchema.findById = function (cb) {
+    return this.model('Polls').find({id: this.id}, cb);
+};
+
 const Poll = mongoose.model('Polls', pollSchema);
 
 exports.list = (perPage, page) => {
@@ -33,9 +38,6 @@ exports.list = (perPage, page) => {
 };
 
 
-pollSchema.findById = function (cb) {
-    return this.model('Polls').find({id: this.id}, cb);
-};
 
 exports.findById = (id) => {
     return Poll.findById(id)

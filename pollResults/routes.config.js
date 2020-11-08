@@ -8,7 +8,7 @@ exports.routesConfig = function (app) {
     app.get('/pollResults', [
         PollResultsController.list
     ]);
-    app.get('/pollResults/:pollResultId', [
-        PollResultsController.getById
+    app.get('/pollResults/:pollId', [
+        PollResultsController.getByPollId
     ]);
 };

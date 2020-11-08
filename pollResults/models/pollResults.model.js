@@ -15,6 +15,10 @@ pollResultSchema.set('toJSON', {
     virtuals: true
 });
 
+pollResultSchema.findByPollId = function (cb) {
+    return this.model('PollResults').find({pollId: this.pollId}, cb);
+};
+
 const PollResult = mongoose.model('PollResults', pollResultSchema);
 
 exports.list = (perPage, page) => {
@@ -22,28 +26,25 @@ exports.list = (perPage, page) => {
         PollResult.find()
             .limit(perPage)
             .skip(perPage * page)
-            .exec(function (err, polls) {
+            .exec(function (err, pollResults) {
                 if (err) {
                     reject(err);
                 } else {
-                    resolve(polls);
+                    resolve(pollResults);
                 }
             })
     });
 };
 
-exports.findById = (id) => {
-    return PollResult.findById(id)
-        .then((result) => {
-            result = result.toJSON();
-            delete result._id;
-            delete result.__v;
-            return result;
-        });
-};
-
-pollResultSchema.findById = function (cb) {
-    return this.model('PollResults').find({id: this.id}, cb);
+exports.findByPollId = (pollId) => {
+    return PollResult.findByPollId(pollId)
+        .exec(function (err, pollResults) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(pollResults);
+            }
+        })
 };
 
 
