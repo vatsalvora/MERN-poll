@@ -1,7 +1,7 @@
-const PollModel = require('../models/polls.model');
+const PollResultModel = require('../models/pollResults.model');
 
 exports.insert = (req, res) => {
-    PollModel.createPoll(req.body)
+    PollResultModel.createPollResult(req.body)
         .then((result) => {
             res.status(201).send({id: result._id});
         });
@@ -16,14 +16,14 @@ exports.list = (req, res) => {
             page = Number.isInteger(req.query.page) ? req.query.page : 0;
         }
     }
-    PollModel.list(limit, page)
+    PollResultModel.list(limit, page)
         .then((result) => {
             res.status(200).send(result);
         })
 };
 
 exports.getById = (req, res) => {
-    PollModel.findById(req.params.pollId)
+    PollResultModel.findById(req.params.pollId)
         .then((result) => {
             res.status(200).send(result);
         });

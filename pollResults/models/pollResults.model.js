@@ -3,11 +3,10 @@ const Schema = mongoose.Schema;
 
 const pollResultSchema = new Schema({
    pollId: String,
-   response: String,
-   timestamp: 
-});
+   response: String
+}, { timestamps: true });
 
-pollSchema.virtual('id').get(function () {
+pollResultSchema.virtual('id').get(function () {
     return this._id.toHexString();
 });
 
@@ -20,7 +19,7 @@ const PollResult = mongoose.model('PollResults', pollResultSchema);
 
 exports.list = (perPage, page) => {
     return new Promise((resolve, reject) => {
-        Poll.find()
+        PollResult.find()
             .limit(perPage)
             .skip(perPage * page)
             .exec(function (err, polls) {
@@ -34,7 +33,7 @@ exports.list = (perPage, page) => {
 };
 
 exports.findById = (id) => {
-    return Poll.findById(id)
+    return PollResult.findById(id)
         .then((result) => {
             result = result.toJSON();
             delete result._id;
@@ -48,7 +47,7 @@ pollResultSchema.findById = function (cb) {
 };
 
 
-exports.createPoll = (pollData) => {
-    const poll = new Poll(pollData);
-    return poll.save();
+exports.createPollResult = (pollResultData) => {
+    const pollResult = new PollResult(pollResultData);
+    return pollResult.save();
 };

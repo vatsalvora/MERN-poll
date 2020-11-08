@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 
 const PollsRouter = require('./polls/routes.config');
+const PollResultsRouter = require('./pollResults/routes.config');
 
 app.use(express.static("public"));
 
@@ -26,6 +27,7 @@ app.get("/", function(req,res) {
 
 app.use(bodyParser.json());
 PollsRouter.routesConfig(app);
+PollResultsRouter.routesConfig(app);
 
 app.listen(process.env.PORT || 3000, 
 	() => console.log("server is running..."));

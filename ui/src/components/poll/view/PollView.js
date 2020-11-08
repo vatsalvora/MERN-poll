@@ -5,6 +5,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import Button from '@material-ui/core/Button';
 import {
   useParams
 } from "react-router-dom";
@@ -51,6 +52,28 @@ function PollView() {
     });
   };
 
+  const handleSubmitClick = (event) => {
+    fetch(`https://mern-poll.herokuapp.com/pollResults`, {
+        method: 'POST',
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            "pollId": pollId,
+            "response": value
+        })
+    })
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(data) {
+        console.log('Request succeeded with JSON response', data);
+    })
+    .catch(function(error) {
+        console.log('Request failed', error);
+    });
+  };
+
   React.useEffect(() => {
       fetchPoll(pollId);
   },[pollId]);
@@ -63,6 +86,9 @@ function PollView() {
         {poll.options.map((item,index) =>
           <FormControlLabel key={"option-"+index} value={item} control={<Radio />} label={item} />
         )}
+        <Button variant="contained" color="primary" onClick={handleSubmitClick}>
+          Save
+        </Button>
       </RadioGroup>
     </FormControl>
     </div>
